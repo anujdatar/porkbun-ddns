@@ -1,0 +1,38 @@
+version: "3"
+services:
+  porkbun-ddns:
+    image: ghcr.io/anujdatar/porkbun-ddns:latest
+    container_name: porkbun-ddns
+    restart: unless-stopped
+    environment:
+      - API_KEY_FILE=/run/secrets/api_key
+      - SECRET_API_KEY_FILE=/run/secrets/secret_key
+      - DOMAIN_FILE=/run/secrets/domain
+      - SUBDOMAIN_FILE=/run/secrets/subdomain
+      - TZ=America/New_York
+      - RECORD_TYPE=AAAA
+      - FREQUENCY=1
+    secrets:
+      - api_key
+      - secret_key
+      - domain
+      - subdomain
+
+networks:
+  default:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: fd00::/64
+
+secrets:
+  api_key:
+    file: porkbun-api-key.txt
+  secret_key:
+    file: porkbun-secret-api-key.txt
+  domain:
+    file: porkbun-domain.txt
+  subdomain:
+    file: porkbun-subdomain.txt
