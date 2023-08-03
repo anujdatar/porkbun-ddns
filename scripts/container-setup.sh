@@ -13,7 +13,7 @@ else
   echo $TZ > /etc/timezone
 fi
 
-echo "Starting Cloudflare DDNS container: [$(date)]"
+echo "Starting Porkbun DDNS container: [$(date)]"
 print_breaker
 # #####################################################################
 echo "Performing basic container parameter check..."
